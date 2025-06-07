@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Aniversário, Amor!</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg,#ffe6f0,#ffffff);
+      text-align: center;
+      color: #d6336c;
+      overflow: hidden; /* impede rolagem ao cair os corações */
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2.5em;
+    }
+
+    p {
+      margin: 10px 20px;
+      font-size: 1.2em;
+    }
+
+    .fotos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .fotos img {
+      width: 90%;
+      max-width: 380px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    audio {
+      display: none;
+    }
+
+    .hint {
+      font-size: 1em;
+      color: #6c757d;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 600px) {
+      .fotos {
+        flex-direction: row;
+      }
+    }
+
+    /* 💖 Estilo dos corações */
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      top: -10px;
+      z-index: 9999;
+      animation: fall 5s linear;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Feliz Aniversário, Meu Amor! 🎉</h1>
+  <p>Que o seu dia seja repleto de amor, alegria e muitos sorrisos. Eu te amo! 💖</p>
+  <p class="hint">👉 Toque em qualquer lugar da tela para ouvir nossa música especial.</p>
+
+  <div class="fotos">
+    <img src="foto1.jpg" alt="Foto do casal 1" />
+    <img src="foto2.jpg" alt="Foto do casal 2" />
+  </div>
+
+  <audio id="musica" src="mil_anos.mp3" loop></audio>
+
+  <script>
+    // Tocar música ao toque
+    document.addEventListener("click", () => {
+      const audio = document.getElementById("musica");
+      if (audio.paused) {
+        audio.play();
+      }
+    });
+
+    // Criar corações animados
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s"; // 3 a 5s
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    // Corações caindo a cada 300ms
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
